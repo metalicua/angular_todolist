@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="courseListApp">
+<html lang="en" ng-app="taskListApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +9,17 @@
     <title>Todolist</title>
 </head>
 
-<body ng-controller="CourseListCtrl">
+<body ng-controller="TaskListCtrl">
     <div class="container">
         <div class="page-header">
             <h1>Todolist</h1>
-            <h3>Пользователь: {{data.user}}. Количество задач - {{data.courses.length}}</h3>
+            <h3>Пользователь: {{data.user}}. Количество задач - {{data.task.length}}</h3>
         </div>
         <div class="panel">
             <div class="input-group">
-                <input type="text" class="form-control" ng-model="courseName">
+                <input type="text" class="form-control" ng-model="taskName">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" ng-click="addNewCourse()">Добавить</button>
+                    <button class="btn btn-primary" ng-click="addNewTask()">Добавить</button>
                 </span>
             </div>
 
@@ -32,14 +32,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="course in data.courses">
-                        <td>{{course.name}}</td>
+                    <tr ng-repeat="task in data.task">
+                        <td>{{task.name}}</td>
                         <td>
-                            <input type="checkbox" ng-model="course.passed" />
+                            <input type="checkbox" ng-model="task.passed" />
                         </td>
                         <td class="text-right">
-                            <span style="{{setStyle(course.passed)}}">
-                                {{showText(course.passed)}}
+                            <span style="{{setStyle(task.passed)}}">
+                                {{showText(task.passed)}}
                             </span>
                         </td>
                     </tr>
@@ -51,25 +51,23 @@
             //model
             var model = {
                 user: prompt ("Введите имя пользователя"),
-                courses: [
-                    // {name:"html, CSS", passed: true}
-                    ]
+                task: []
             };
         
             //module
-            var courseListApp = angular.module("courseListApp",[]);
+            var taskListApp = angular.module("taskListApp",[]);
         
             //controller
-            courseListApp.controller("CourseListCtrl", function ($scope) {
+            taskListApp.controller("TaskListCtrl", function ($scope) {
                 $scope.data = model;
         
-                $scope.addNewCourse = function() {
-                    $scope.data.courses.push({
-                        name: $scope.courseName,
+                $scope.addNewTask = function() {
+                    $scope.data.task.push({
+                        name: $scope.taskName,
                         passed:false
                     });
         
-                    $scope.courseName = "";
+                    $scope.taskName = "";
                 }
         
                 $scope.showText = function (passed) {
